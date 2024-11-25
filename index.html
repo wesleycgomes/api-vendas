@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de Vendas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-top: 50px;
+        }
+        .carousel-container {
+            margin: 20px auto;
+            max-width: 1000px;
+            position: relative;
+        }
+        .carousel {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 200px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+        .carousel img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .carousel-controls button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .product-price {
+            color: #ff5722;
+            font-size: 16px;
+        }
+        .add-to-cart-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .add-to-cart-btn:hover {
+            background-color: #45a049;
+        }
+        .cart-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cart-container h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .cart-item {
+            background-color: #f8f8f8;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+        }
+        .cart-item p {
+            margin: 0;
+        }
+        .total-price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Loja de Vendas</h1>
+
+    <div class="carousel-container">
+        <div class="carousel" id="carousel">
+            <!-- Os produtos serão inseridos aqui dinamicamente -->
+        </div>
+        <div class="carousel-controls">
+            <button id="prevBtn">&#10094;</button>
+            <button id="nextBtn">&#10095;</button>
+        </div>
+    </div>
+
+    <div class="cart-container" id="cartContainer">
+        <h2>Carrinho de Compras</h2>
+        <div id="cartItems">
+            <p>Seu carrinho está vazio.</p>
+        </div>
+        <p class="total-price" id="totalPrice">Total: R$ 0.00</p>
+        <button id="clearCartBtn" style="background-color: #f44336; color: white; padding: 10px 20px; border: none; border-radius: 4px;">Limpar Carrinho</button>
+    </div>
+
+    <script>
+        let products = [
+            {
+                id: 1,
+                title: "Essence Mascara Lash Princess",
+                price: 9.99,
+                category: "beleza",
+                image: "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"
+            },
+            {
+                id: 2,
+                title: "Paleta de sombras com espelho",
+                price: 19.99,
+                category: "beleza",
+                image: "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+            },
+            {
+                id: 3,
+                title: "Lata de pólvora",
+                price: 14.99,
+                category: "beleza",
+                image: "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"
+            }
+            ,
+            {
+                id: 3,
+                title: "Lata de pólvora",
+                price: 14.99,
+                category: "beleza",
+                image: "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"
+            }
+            ,
+            {
+                id: 3,
+                title: "Lata de pólvora",
+                price: 14.99,
+                category: "beleza",
+                image: "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"
+            }
+            ,
+            {
+                id: 3,
+                title: "Lata de pólvora",
+                price: 14.99,
+                category: "beleza",
+                image: "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"
+            }
+            ,
+            {
+                id: 3,
+                title: "Lata de pólvora",
+                price: 14.99,
+                category: "beleza",
+                image: "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"
+            }
+            ,
+            {
+                id: 3,
+                title: "Lata de pólvora",
+                price: 14.99,
+                category: "beleza",
+                image: "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"
+            }
+        ];
+
+        let cart = [];
+
+        // Função para adicionar produtos ao carrinho
+        function addToCart(product) {
+            cart.push(product);
+            displayCart();
+        }
+
+        // Função para exibir os produtos no carrossel
+        function displayProducts() {
+            const carousel = document.getElementById("carousel");
+            carousel.innerHTML = ""; // Limpar o carrossel antes de adicionar novos itens
+
+            products.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.classList.add('carousel-item');
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
+                    <h3 class="product-title">${product.title}</h3>
+                    <p class="product-price">R$ ${product.price}</p>
+                    <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                `;
+                // Passa o objeto completo para a função addToCart
+                productElement.querySelector('.add-to-cart-btn').addEventListener('click', () => addToCart(product));
+                carousel.appendChild(productElement);
+            });
+        }
+
+        // Função para exibir o conteúdo do carrinho
+        function displayCart() {
+            const cartItems = document.getElementById('cartItems');
+            const totalPriceElement = document.getElementById('totalPrice');
+            cartItems.innerHTML = ""; // Limpar itens anteriores no carrinho
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = "<p>Seu carrinho está vazio.</p>";
+                totalPriceElement.innerHTML = "Total: R$ 0.00";
+            } else {
+                let totalPrice = 0;
+                cart.forEach(item => {
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.classList.add('cart-item');
+                    cartItemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.title}">
+                        <p><strong>${item.title}</strong> - R$ ${item.price}</p>
+                    `;
+                    cartItems.appendChild(cartItemElement);
+                    totalPrice += item.price;
+                });
+                totalPriceElement.innerHTML = `Total: R$ ${totalPrice.toFixed(2)}`;
+            }
+        }
+
+        // Função para limpar o carrinho
+        document.getElementById('clearCartBtn').addEventListener('click', () => {
+            cart = [];
+            displayCart();
+        });
+
+        // Função para mover o carrossel para a esquerda
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            const carousel = document.getElementById('carousel');
+            carousel.scrollLeft -= 220;
+        });
+
+        // Função para mover o carrossel para a direita
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            const carousel = document.getElementById('carousel');
+            carousel.scrollLeft += 220;
+        });
+
+        // Inicializar a página
+        displayProducts();
+        displayCart();
+    </script>
+
+</body>
+</html>
